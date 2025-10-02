@@ -1,0 +1,594 @@
+[
+  {
+    "carrier": "Americo",
+    "slug": "americo",
+    "enabled": true,
+    "carrier_factor": 1.0,
+    "products": [
+      {
+        "id": "fe_level",
+        "label": "Final Expense (Level)",
+        "type": "fe",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "knockouts": [],
+          "graded": [],
+          "standard": [],
+          "preferred": true
+        },
+        "ui_label_overrides": {
+          "preferred": null,
+          "standard": null,
+          "graded": null,
+          "gi": null
+        }
+      },
+      {
+        "id": "gi",
+        "label": "Guaranteed Issue WL",
+        "type": "gi",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": 1.0,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "gi": true
+        },
+        "ui_label_overrides": {
+          "gi": null
+        }
+      },
+      {
+        "id": "term_level_20",
+        "label": "Level Term 20",
+        "type": "term",
+        "term_years": 20,
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "declines": [],
+          "standard": []
+        },
+        "ui_label_overrides": {
+          "preferred": null
+        }
+      }
+    ],
+    "disclaimer": "Product features, options, and availability vary by state and carrier. Not available in all states."
+  },
+  {
+    "carrier": "Corebridge Financial",
+    "slug": "corebridge",
+    "enabled": true,
+    "carrier_factor": 0.98,
+    "products": [
+      {
+        "id": "fe_level",
+        "label": "Final Expense (Level)",
+        "type": "fe",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "knockouts": [],
+          "graded": [],
+          "standard": [],
+          "preferred": true
+        },
+        "ui_label_overrides": {
+          "preferred": null,
+          "standard": null,
+          "graded": null,
+          "gi": null
+        }
+      },
+      {
+        "id": "gi",
+        "label": "Guaranteed Issue WL",
+        "type": "gi",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": 1.0,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "gi": true
+        },
+        "ui_label_overrides": {
+          "gi": null
+        }
+      },
+      {
+        "id": "term_level_20",
+        "label": "Level Term 20",
+        "type": "term",
+        "term_years": 20,
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "declines": [],
+          "standard": []
+        },
+        "ui_label_overrides": {
+          "preferred": null
+        }
+      }
+    ],
+    "disclaimer": "Product features, options, and availability vary by state and carrier. Not available in all states."
+  },
+  {
+    "carrier": "Mutual of Omaha",
+    "slug": "mutual-of-omaha",
+    "enabled": true,
+    "carrier_factor": 1.02,
+    "products": [
+      {
+        "id": "fe_level",
+        "label": "Final Expense (Level)",
+        "type": "fe",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "knockouts": [],
+          "graded": [],
+          "standard": [],
+          "preferred": true
+        },
+        "ui_label_overrides": {
+          "preferred": null,
+          "standard": null,
+          "graded": null,
+          "gi": null
+        }
+      },
+      {
+        "id": "gi",
+        "label": "Guaranteed Issue WL",
+        "type": "gi",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": 1.0,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "gi": true
+        },
+        "ui_label_overrides": {
+          "gi": null
+        }
+      },
+      {
+        "id": "term_level_20",
+        "label": "Level Term 20",
+        "type": "term",
+        "term_years": 20,
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "declines": [],
+          "standard": []
+        },
+        "ui_label_overrides": {
+          "preferred": null
+        }
+      }
+    ],
+    "disclaimer": "Product features, options, and availability vary by state and carrier. Not available in all states."
+  },
+  {
+    "carrier": "Baltimore Life",
+    "slug": "baltimore-life",
+    "enabled": true,
+    "carrier_factor": 1.03,
+    "products": [
+      {
+        "id": "fe_level",
+        "label": "Final Expense (Level)",
+        "type": "fe",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "knockouts": [],
+          "graded": [],
+          "standard": [],
+          "preferred": true
+        },
+        "ui_label_overrides": {
+          "preferred": null,
+          "standard": null,
+          "graded": null,
+          "gi": null
+        }
+      },
+      {
+        "id": "gi",
+        "label": "Guaranteed Issue WL",
+        "type": "gi",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": 1.0,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "gi": true
+        },
+        "ui_label_overrides": {
+          "gi": null
+        }
+      },
+      {
+        "id": "term_level_20",
+        "label": "Level Term 20",
+        "type": "term",
+        "term_years": 20,
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "declines": [],
+          "standard": []
+        },
+        "ui_label_overrides": {
+          "preferred": null
+        }
+      }
+    ],
+    "disclaimer": "Product features, options, and availability vary by state and carrier. Not available in all states."
+  },
+  {
+    "carrier": "Illinois Mutual",
+    "slug": "illinois-mutual",
+    "enabled": true,
+    "carrier_factor": 1.01,
+    "products": [
+      {
+        "id": "fe_level",
+        "label": "Final Expense (Level)",
+        "type": "fe",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "knockouts": [],
+          "graded": [],
+          "standard": [],
+          "preferred": true
+        },
+        "ui_label_overrides": {
+          "preferred": null,
+          "standard": null,
+          "graded": null,
+          "gi": null
+        }
+      },
+      {
+        "id": "gi",
+        "label": "Guaranteed Issue WL",
+        "type": "gi",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": 1.0,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "gi": true
+        },
+        "ui_label_overrides": {
+          "gi": null
+        }
+      },
+      {
+        "id": "term_level_20",
+        "label": "Level Term 20",
+        "type": "term",
+        "term_years": 20,
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "declines": [],
+          "standard": []
+        },
+        "ui_label_overrides": {
+          "preferred": null
+        }
+      }
+    ],
+    "disclaimer": "Product features, options, and availability vary by state and carrier. Not available in all states."
+  },
+  {
+    "carrier": "NLG (National Life)",
+    "slug": "nlg",
+    "enabled": true,
+    "carrier_factor": 1.0,
+    "products": [
+      {
+        "id": "fe_level",
+        "label": "Final Expense (Level)",
+        "type": "fe",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "knockouts": [],
+          "graded": [],
+          "standard": [],
+          "preferred": true
+        },
+        "ui_label_overrides": {
+          "preferred": null,
+          "standard": null,
+          "graded": null,
+          "gi": null
+        }
+      },
+      {
+        "id": "gi",
+        "label": "Guaranteed Issue WL",
+        "type": "gi",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": 1.0,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "gi": true
+        },
+        "ui_label_overrides": {
+          "gi": null
+        }
+      },
+      {
+        "id": "term_level_20",
+        "label": "Level Term 20",
+        "type": "term",
+        "term_years": 20,
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "declines": [],
+          "standard": []
+        },
+        "ui_label_overrides": {
+          "preferred": null
+        }
+      }
+    ],
+    "disclaimer": "Product features, options, and availability vary by state and carrier. Not available in all states."
+  },
+  {
+    "carrier": "American Amicable",
+    "slug": "american-amicable",
+    "enabled": true,
+    "carrier_factor": 1.0,
+    "products": [
+      {
+        "id": "fe_level",
+        "label": "Final Expense (Level)",
+        "type": "fe",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "knockouts": [],
+          "graded": [],
+          "standard": [],
+          "preferred": true
+        },
+        "ui_label_overrides": {
+          "preferred": null,
+          "standard": null,
+          "graded": null,
+          "gi": null
+        }
+      },
+      {
+        "id": "gi",
+        "label": "Guaranteed Issue WL",
+        "type": "gi",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": 1.0,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "gi": true
+        },
+        "ui_label_overrides": {
+          "gi": null
+        }
+      },
+      {
+        "id": "term_level_20",
+        "label": "Level Term 20",
+        "type": "term",
+        "term_years": 20,
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "declines": [],
+          "standard": []
+        },
+        "ui_label_overrides": {
+          "preferred": null
+        }
+      }
+    ],
+    "disclaimer": "Product features, options, and availability vary by state and carrier. Not available in all states."
+  },
+  {
+    "carrier": "Transamerica",
+    "slug": "transamerica",
+    "enabled": true,
+    "carrier_factor": 1.0,
+    "products": [
+      {
+        "id": "fe_level",
+        "label": "Final Expense (Level)",
+        "type": "fe",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "knockouts": [],
+          "graded": [],
+          "standard": [],
+          "preferred": true
+        },
+        "ui_label_overrides": {
+          "preferred": null,
+          "standard": null,
+          "graded": null,
+          "gi": null
+        }
+      },
+      {
+        "id": "gi",
+        "label": "Guaranteed Issue WL",
+        "type": "gi",
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": 1.0,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "gi": true
+        },
+        "ui_label_overrides": {
+          "gi": null
+        }
+      },
+      {
+        "id": "term_level_20",
+        "label": "Level Term 20",
+        "type": "term",
+        "term_years": 20,
+        "min_face": null,
+        "max_face": null,
+        "state_exclusions": [],
+        "tobacco_factor": null,
+        "rates": {
+          "male": [],
+          "female": []
+        },
+        "underwriting": {
+          "declines": [],
+          "standard": []
+        },
+        "ui_label_overrides": {
+          "preferred": null
+        }
+      }
+    ],
+    "disclaimer": "Product features, options, and availability vary by state and carrier. Not available in all states."
+  }
+]
