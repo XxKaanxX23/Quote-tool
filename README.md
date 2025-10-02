@@ -18,6 +18,24 @@ A drop-in JavaScript quoting helper that reads a carrier underwriting data file 
 3. Pass a request describing your client to `calculateQuotes`.
 4. Render the results next to your CTA button using `renderQuoteList`.
 
+### Visual demo
+
+For a ready-to-run UI, open `index.html` from this repository with a local static server:
+
+```bash
+# from the repository root
+npx serve .
+# ...or...
+python -m http.server 8000
+```
+
+Then browse to the reported URL (for Python the default is http://localhost:8000/index.html). The demo mirrors the single-screen layout shown in the mock-up, automatically loads `carrier_underwriting.json`, and lets you:
+
+* adjust coverage, age, state, and gender;
+* toggle nicotine use and health conditions (the widget maps these to a reasonable health class automatically); and
+* customise the CTA label/link per quote.
+
+Click **Get Quotes** to render the results list. Every row includes the carrier, product, formatted modal premium, and your configured button.
 ### Browser example
 
 ```html
