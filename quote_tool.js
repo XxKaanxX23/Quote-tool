@@ -21,10 +21,10 @@
     currencySymbol: "$",
     baseCoverageUnit: 1000,
     modalFactors: {
-      annual: 1,
-      semi_annual: 0.52,
-      quarterly: 0.265,
-      monthly: 0.09
+      annual: 12,
+      semi_annual: 6,
+      quarterly: 3,
+      monthly: 1
     },
     buttonText: "Book now",
     linkUrl: "#"
@@ -77,16 +77,69 @@
     return `${currencySymbol}${value.toFixed(2)}`;
   }
 
-  function resolveModalFactor(product, modality) {
-    const modal = modality || DEFAULT_MODALITY;
+  function normaliseRateTablePeriod(source) {
+    if (!source) return null;
+    const period = source.rate_table_period;
+    if (typeof period === "string") {
+      const key = normaliseKey(period);
+      if (key.includes("month")) return "monthly";
+      if (key.includes("year") || key.includes("annual")) return "annual";
+    }
+    if (Object.prototype.hasOwnProperty.call(source, "rate_table_is_monthly")) {
+      return source.rate_table_is_monthly ? "monthly" : "annual";
+    }
+    if (Object.prototype.hasOwnProperty.call(source, "rate_table_is_annual")) {
+      return source.rate_table_is_annual ? "annual" : "monthly";
+    }
+    return null;
+  }
+
+  function normaliseModalFactors(product) {
     const factors = {
       ...DEFAULTS.modalFactors,
       ...(product && product.modal_factors ? product.modal_factors : {})
     };
+    const monthlyValue = Number(factors.monthly);
+    const base = Number.isFinite(monthlyValue) && monthlyValue > 0 ? monthlyValue : 1;
+    const result = {};
+
+    for (const [key, value] of Object.entries(factors)) {
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric) || numeric <= 0) continue;
+      result[key] = numeric / base;
+    }
+
+    result.monthly = 1;
+    return result;
+  }
+
+  function resolveModalFactor(product, modality) {
+    const modal = modality || DEFAULT_MODALITY;
+    const factors = normaliseModalFactors(product);
     if (!Object.prototype.hasOwnProperty.call(factors, modal)) {
       throw new RangeError(`Unsupported payment modality \"${modal}\".`);
     }
-    return { modal, factor: factors[modal] };
+    return { modal, factor: factors[modal], factors };
+  }
+
+  function convertToMonthly(amount, period, modalFactors) {
+    if (!Number.isFinite(amount)) return amount;
+    const factors = modalFactors || {};
+    if (period === "monthly" || !period) {
+      return amount;
+    }
+    if (period === "annual") {
+      const annualFactor = Number(factors.annual) > 0 ? Number(factors.annual) : 12;
+      return amount / annualFactor;
+    }
+    if (Object.prototype.hasOwnProperty.call(factors, period)) {
+      const baseFactor = Number(factors[period]);
+      if (baseFactor > 0) {
+        const monthlyFactor = Number(factors.monthly) > 0 ? Number(factors.monthly) : 1;
+        return amount * (monthlyFactor / baseFactor);
+      }
+    }
+    return amount;
   }
 
   function stateAdjustment(product, state) {
@@ -145,11 +198,14 @@
       healthClass: details.healthClass,
       nicotineUse: details.nicotineUse,
       appliedFactors: clone(details.appliedFactors),
+      rateTablePeriod: details.rateTablePeriod,
       policyFeeAnnual: details.policyFeeAnnual,
+      policyFeeMonthly: details.policyFeeMonthly,
       modality: details.modality,
       modalFactor: details.modalFactor,
-      annualPremiumBeforeFees: details.annualPremiumBeforeFees,
-      annualPremiumAfterFees: details.annualPremiumAfterFees,
+      modalFactors: clone(details.modalFactors),
+      baseMonthlyPremiumBeforeFees: details.baseMonthlyPremiumBeforeFees,
+      baseMonthlyPremiumAfterFees: details.baseMonthlyPremiumAfterFees,
       modalPremium: details.modalPremium
     };
   }
@@ -160,10 +216,12 @@
         throw new TypeError("underwritingData must be an object.");
       }
       const metadata = underwritingData.metadata || {};
+      const datasetRatePeriod = normaliseRateTablePeriod(metadata) || "monthly";
       this.metadata = {
         currency: metadata.currency || DEFAULTS.currency,
         currencySymbol: metadata.currency_symbol || DEFAULTS.currencySymbol,
-        baseCoverageUnit: metadata.base_coverage_unit || DEFAULTS.baseCoverageUnit
+        baseCoverageUnit: metadata.base_coverage_unit || DEFAULTS.baseCoverageUnit,
+        rateTablePeriod: datasetRatePeriod
       };
       this.carriers = Array.isArray(underwritingData.carriers)
         ? underwritingData.carriers.slice()
@@ -222,14 +280,18 @@
           const healthFactor = resolveFactor(product.health_factors, healthClass, 1);
           const nicotineFactor = resolveFactor(product.nicotine_factors, nicotineUse ? "true" : "false", nicotineUse ? 1.5 : 1);
           const productFactor = Number.isFinite(product.product_factor) ? product.product_factor : 1;
-          const annualPremiumBeforeFees = baseRatePerUnit * coverageUnits * healthFactor * nicotineFactor * stateFactor * productFactor;
+          const rawPremium = baseRatePerUnit * coverageUnits * healthFactor * nicotineFactor * stateFactor * productFactor;
 
           const policyFeeAnnual = Number.isFinite(product.policy_fee_annual) ? product.policy_fee_annual : 0;
 
-          const { modal, factor: modalFactor } = resolveModalFactor(product, modality);
+          const { modal, factor: modalFactor, factors: modalFactors } = resolveModalFactor(product, modality);
+          const productRatePeriod = normaliseRateTablePeriod(product);
+          const rateTablePeriod = productRatePeriod || this.metadata.rateTablePeriod || "monthly";
 
-          const annualPremiumAfterFees = annualPremiumBeforeFees + policyFeeAnnual;
-          const modalPremium = annualPremiumAfterFees * modalFactor;
+          const baseMonthlyPremiumBeforeFees = convertToMonthly(rawPremium, rateTablePeriod, modalFactors);
+          const policyFeeMonthly = convertToMonthly(policyFeeAnnual, "annual", modalFactors);
+          const baseMonthlyPremiumAfterFees = baseMonthlyPremiumBeforeFees + policyFeeMonthly;
+          const modalPremium = baseMonthlyPremiumAfterFees * modalFactor;
 
           const formattedPremium = Number(modalPremium.toFixed(2));
 
@@ -260,11 +322,14 @@
                 state: stateFactor,
                 product: productFactor
               },
+              rateTablePeriod,
               policyFeeAnnual,
+              policyFeeMonthly,
               modality: modal,
               modalFactor,
-              annualPremiumBeforeFees,
-              annualPremiumAfterFees,
+              modalFactors,
+              baseMonthlyPremiumBeforeFees,
+              baseMonthlyPremiumAfterFees,
               modalPremium
             })
           });

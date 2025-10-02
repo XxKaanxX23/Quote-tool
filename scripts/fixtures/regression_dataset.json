@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "currency": "USD",
+    "currency_symbol": "$",
+    "base_coverage_unit": 1000,
+    "rate_table_period": "monthly"
+  },
+  "carriers": [
+    {
+      "name": "RegressCo",
+      "products": [
+        {
+          "name": "Final Expense Level",
+          "type": "fe",
+          "policy_fee_annual": 120,
+          "modal_factors": {
+            "annual": 12,
+            "semi_annual": 6,
+            "quarterly": 3,
+            "monthly": 1
+          },
+          "rate_table": [
+            {
+              "min_age": 50,
+              "max_age": 85,
+              "rates": {
+                "male": 10.992,
+                "female": 9.5
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
