@@ -6,7 +6,7 @@ This document explains how the `carrier_underwriting.json` file is structured so
 
 | Key | Description |
 | --- | ----------- |
-| `metadata` | Optional information about the dataset. We currently use it to set the default currency (`currency`), the symbol to use when rendering prices (`currency_symbol`), and the coverage unit used when applying rate table values (`base_coverage_unit`). |
+| `metadata` | Optional information about the dataset. Use it to set the default currency (`currency`), symbol (`currency_symbol`), coverage unit applied to rate tables (`base_coverage_unit`), and the period represented by each rate (`rate_table_period` / `rate_table_is_monthly`). The period defaults to monthly. |
 | `carriers` | An array of carrier objects. Each carrier should contain a human-readable `name` and an array of `products`. |
 
 ## Carrier object
@@ -26,7 +26,8 @@ This document explains how the `carrier_underwriting.json` file is structured so
 | `base_coverage_unit` | ❌ | Overrides the dataset-level `base_coverage_unit` (defaults to 1,000). Rates are assumed to be *per unit*. |
 | `product_factor` | ❌ | Additional multiplier applied to the rate before fees. Use it to account for product-level loadings (defaults to `1`). |
 | `policy_fee_annual` | ❌ | Flat annual policy fee added before modality factors are applied (defaults to `0`). |
-| `modal_factors` | ❌ | Mapping of payment modal to a factor used to convert the annual premium into the requested frequency. If omitted we fall back to sensible defaults (`annual`, `semi_annual`, `quarterly`, `monthly`). |
+| `rate_table_period` | ❌ | Overrides the dataset-level interpretation of rate tables. Supported values are `monthly` and `annual`. |
+| `modal_factors` | ❌ | Mapping of payment modal to a factor used to convert the base monthly premium into the requested frequency. If omitted we fall back to sensible defaults (`annual`, `semi_annual`, `quarterly`, `monthly`). Values are normalised so the monthly factor is treated as `1`. |
 | `rate_table` | ✅ | Array of age bands (see below). |
 | `health_factors` | ❌ | Map of health classes to multipliers. Keys are lower-case with underscores (e.g. `preferred_plus`). Unrecognised classes default to `1`. |
 | `nicotine_factors` | ❌ | Map of nicotine use (`"true"` or `"false"`) to multipliers. Defaults to `1` for `false` and `1.5` for `true`. |
@@ -35,7 +36,7 @@ This document explains how the `carrier_underwriting.json` file is structured so
 
 ### Age band structure
 
-Each entry in `rate_table` defines the rate per coverage unit for a specific age range.
+Each entry in `rate_table` defines the rate per coverage unit for a specific age range. Rates are interpreted as monthly amounts per unit unless you override the period via metadata or a product-level `rate_table_period`.
 
 ```json
 {
@@ -62,7 +63,7 @@ Each entry in `rate_table` defines the rate per coverage unit for a specific age
 
 * **Rates** – update the numeric values inside each `rates` object.
 * **Policy fee** – update `policy_fee_annual`.
-* **Modality factors** – adjust the values in `modal_factors`. The quote tool multiplies the annual premium (after adding the policy fee) by the chosen factor.
+* **Modality factors** – adjust the values in `modal_factors`. The quote tool treats the monthly factor as `1` and multiplies the base monthly premium (after adding a monthly-equivalent policy fee) by the chosen factor.
 
 ## Validation tips
 

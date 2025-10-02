@@ -111,7 +111,7 @@ Every quote returned from `calculateQuotes` includes a `breakdown` object with:
 
 * the base age band that was matched,
 * the multipliers that were applied (health, nicotine, state, product), and
-* the annual and modal premiums both before and after fees.
+* the monthly premium before/after policy fees alongside the modal conversion that produced the returned price.
 
 Use this to debug results or display additional information to the end user.
 
