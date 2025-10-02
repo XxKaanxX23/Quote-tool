@@ -1,0 +1,345 @@
+{
+  "metadata": {
+    "currency": "USD",
+    "currency_symbol": "$",
+    "base_coverage_unit": 1000
+  },
+  "carriers": [
+    {
+      "name": "Americo",
+      "products": [
+        {
+          "name": "Eagle Premier Whole Life",
+          "type": "whole",
+          "base_coverage_unit": 1000,
+          "product_factor": 1,
+          "policy_fee_annual": 70,
+          "minimum_face_amount": 5000,
+          "maximum_face_amount": 500000,
+          "modal_factors": {
+            "annual": 1,
+            "semi_annual": 0.515,
+            "quarterly": 0.262,
+            "monthly": 0.087
+          },
+          "health_factors": {
+            "preferred_plus": 1,
+            "preferred": 1.05,
+            "standard_plus": 1.1,
+            "standard": 1.18,
+            "table_a": 1.32,
+            "table_b": 1.48
+          },
+          "nicotine_factors": {
+            "true": 1.4,
+            "false": 1
+          },
+          "state_factors": {
+            "AK": 1.05,
+            "AL": 1,
+            "AR": 1,
+            "AZ": 1,
+            "CA": 1.03,
+            "CO": 1,
+            "CT": 1.02,
+            "DC": 1,
+            "DE": 1,
+            "FL": 1.06,
+            "GA": 1,
+            "HI": 1.04,
+            "IA": 1,
+            "ID": 1,
+            "IL": 1.01,
+            "IN": 1,
+            "KS": 1,
+            "KY": 1,
+            "LA": 1.02,
+            "MA": 1,
+            "MD": 1,
+            "ME": 1,
+            "MI": 1,
+            "MN": 1,
+            "MO": 1,
+            "MS": 1,
+            "MT": 1,
+            "NC": 1,
+            "ND": 1,
+            "NE": 1,
+            "NH": 1,
+            "NJ": 1.04,
+            "NM": 1,
+            "NV": 1,
+            "NY": 0,
+            "OH": 1,
+            "OK": 1,
+            "OR": 1,
+            "PA": 1,
+            "RI": 1,
+            "SC": 1,
+            "SD": 1,
+            "TN": 1,
+            "TX": 1,
+            "UT": 1,
+            "VA": 1,
+            "VT": 1,
+            "WA": 1,
+            "WI": 1,
+            "WV": 1,
+            "WY": 1
+          },
+          "rate_table": [
+            {
+              "min_age": 18,
+              "max_age": 35,
+              "rates": { "male": 1.82, "female": 1.7 }
+            },
+            {
+              "min_age": 36,
+              "max_age": 45,
+              "rates": { "male": 2.58, "female": 2.34 }
+            },
+            {
+              "min_age": 46,
+              "max_age": 55,
+              "rates": { "male": 4.12, "female": 3.78 }
+            },
+            {
+              "min_age": 56,
+              "max_age": 65,
+              "rates": { "male": 6.9, "female": 6.22 }
+            },
+            {
+              "min_age": 66,
+              "max_age": 80,
+              "rates": { "male": 11.45, "female": 10.4 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mutual of Omaha",
+      "products": [
+        {
+          "name": "Living Promise Whole Life",
+          "type": "whole",
+          "base_coverage_unit": 1000,
+          "product_factor": 0.98,
+          "policy_fee_annual": 60,
+          "minimum_face_amount": 2000,
+          "maximum_face_amount": 400000,
+          "modal_factors": {
+            "annual": 1,
+            "semi_annual": 0.52,
+            "quarterly": 0.265,
+            "monthly": 0.09
+          },
+          "health_factors": {
+            "preferred_plus": 1,
+            "preferred": 1.04,
+            "standard_plus": 1.09,
+            "standard": 1.16,
+            "table_a": 1.28,
+            "table_b": 1.42
+          },
+          "nicotine_factors": {
+            "true": 1.35,
+            "false": 1
+          },
+          "state_factors": {
+            "AK": 1.03,
+            "AL": 1,
+            "AR": 1,
+            "AZ": 1,
+            "CA": 1.02,
+            "CO": 1,
+            "CT": 1.01,
+            "DC": 1,
+            "DE": 1,
+            "FL": 1.05,
+            "GA": 1,
+            "HI": 1.03,
+            "IA": 1,
+            "ID": 1,
+            "IL": 1,
+            "IN": 1,
+            "KS": 1,
+            "KY": 1,
+            "LA": 1.01,
+            "MA": 1,
+            "MD": 1,
+            "ME": 1,
+            "MI": 1,
+            "MN": 1,
+            "MO": 1,
+            "MS": 1,
+            "MT": 1,
+            "NC": 1,
+            "ND": 1,
+            "NE": 1,
+            "NH": 1,
+            "NJ": 1.03,
+            "NM": 1,
+            "NV": 1,
+            "NY": 0,
+            "OH": 1,
+            "OK": 1,
+            "OR": 1,
+            "PA": 1,
+            "RI": 1,
+            "SC": 1,
+            "SD": 1,
+            "TN": 1,
+            "TX": 1,
+            "UT": 1,
+            "VA": 1,
+            "VT": 1,
+            "WA": 1,
+            "WI": 1,
+            "WV": 1,
+            "WY": 1
+          },
+          "rate_table": [
+            {
+              "min_age": 18,
+              "max_age": 35,
+              "rates": { "male": 1.74, "female": 1.62 }
+            },
+            {
+              "min_age": 36,
+              "max_age": 45,
+              "rates": { "male": 2.36, "female": 2.18 }
+            },
+            {
+              "min_age": 46,
+              "max_age": 55,
+              "rates": { "male": 3.68, "female": 3.4 }
+            },
+            {
+              "min_age": 56,
+              "max_age": 65,
+              "rates": { "male": 6.12, "female": 5.58 }
+            },
+            {
+              "min_age": 66,
+              "max_age": 85,
+              "rates": { "male": 9.84, "female": 8.92 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Royal Neighbors of America",
+      "products": [
+        {
+          "name": "Simplified Issue Whole Life",
+          "type": "whole",
+          "base_coverage_unit": 1000,
+          "product_factor": 1.02,
+          "policy_fee_annual": 64,
+          "minimum_face_amount": 3000,
+          "maximum_face_amount": 250000,
+          "modal_factors": {
+            "annual": 1,
+            "semi_annual": 0.51,
+            "quarterly": 0.26,
+            "monthly": 0.085
+          },
+          "health_factors": {
+            "preferred_plus": 1,
+            "preferred": 1.06,
+            "standard_plus": 1.12,
+            "standard": 1.22,
+            "table_a": 1.36,
+            "table_b": 1.55
+          },
+          "nicotine_factors": {
+            "true": 1.38,
+            "false": 1
+          },
+          "state_factors": {
+            "AK": 1.04,
+            "AL": 1,
+            "AR": 1,
+            "AZ": 1,
+            "CA": 1.03,
+            "CO": 1,
+            "CT": 1.01,
+            "DC": 1,
+            "DE": 1,
+            "FL": 1.04,
+            "GA": 1,
+            "HI": 1.02,
+            "IA": 1,
+            "ID": 1,
+            "IL": 1,
+            "IN": 1,
+            "KS": 1,
+            "KY": 1,
+            "LA": 1.02,
+            "MA": 1,
+            "MD": 1,
+            "ME": 1,
+            "MI": 1,
+            "MN": 1,
+            "MO": 1,
+            "MS": 1,
+            "MT": 1,
+            "NC": 1,
+            "ND": 1,
+            "NE": 1,
+            "NH": 1,
+            "NJ": 1.02,
+            "NM": 1,
+            "NV": 1,
+            "NY": 0,
+            "OH": 1,
+            "OK": 1,
+            "OR": 1,
+            "PA": 1,
+            "RI": 1,
+            "SC": 1,
+            "SD": 1,
+            "TN": 1,
+            "TX": 1,
+            "UT": 1,
+            "VA": 1,
+            "VT": 1,
+            "WA": 1,
+            "WI": 1,
+            "WV": 1,
+            "WY": 1
+          },
+          "rate_table": [
+            {
+              "min_age": 18,
+              "max_age": 35,
+              "rates": { "male": 1.94, "female": 1.8 }
+            },
+            {
+              "min_age": 36,
+              "max_age": 45,
+              "rates": { "male": 2.74, "female": 2.5 }
+            },
+            {
+              "min_age": 46,
+              "max_age": 55,
+              "rates": { "male": 4.26, "female": 3.94 }
+            },
+            {
+              "min_age": 56,
+              "max_age": 65,
+              "rates": { "male": 7.38, "female": 6.72 }
+            },
+            {
+              "min_age": 66,
+              "max_age": 85,
+              "rates": { "male": 12.08, "female": 10.96 }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

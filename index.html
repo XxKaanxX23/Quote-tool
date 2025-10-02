@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Life Insurance Quote Tool Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+        background-color: #f4f6fb;
+        line-height: 1.5;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #eef1f8, #f4f6fb 45%);
+        color: #111827;
+      }
+
+      .page {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 48px 24px 64px;
+      }
+
+      .card {
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 20px 45px -35px rgba(15, 23, 42, 0.6);
+        padding: 36px;
+        margin-bottom: 32px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.8rem, 2vw + 1rem, 2.4rem);
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      h2 {
+        font-size: 1.25rem;
+        margin: 0 0 12px;
+      }
+
+      p.lead {
+        margin: 8px 0 32px;
+        color: #4b5563;
+        max-width: 540px;
+      }
+
+      form {
+        display: grid;
+        gap: 20px;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .field label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #1f2937;
+      }
+
+      .field select,
+      .field input[type="number"],
+      .field input[type="text"],
+      .field input[type="url"],
+      .field input[type="range"] {
+        font: inherit;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid #d1d5db;
+        background: #f9fafb;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .field input[type="range"] {
+        padding: 0;
+      }
+
+      .field select:focus,
+      .field input[type="number"]:focus,
+      .field input[type="text"]:focus,
+      .field input[type="url"]:focus,
+      .field input[type="range"]:focus {
+        outline: none;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+      }
+
+      .inline-group {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .inline-group .field {
+        flex: 1 1 160px;
+      }
+
+      .slider-value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-top: 6px;
+        color: #1f2937;
+      }
+
+      .note {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .health-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+      }
+
+      .checkbox-pill {
+        border: 1px solid #d1d5db;
+        background: #f9fafb;
+        border-radius: 999px;
+        padding: 8px 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: background 0.2s ease, border 0.2s ease, color 0.2s ease;
+      }
+
+      .checkbox-pill input {
+        accent-color: #4f46e5;
+      }
+
+      .checkbox-pill input:checked + span,
+      .checkbox-pill input:focus + span {
+        font-weight: 600;
+      }
+
+      .checkbox-pill:hover {
+        border-color: #4f46e5;
+        background: rgba(79, 70, 229, 0.06);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      button[type="submit"] {
+        background: #4f46e5;
+        color: #ffffff;
+        font-weight: 600;
+        border: none;
+        border-radius: 999px;
+        padding: 14px 28px;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        box-shadow: 0 12px 25px -12px rgba(79, 70, 229, 0.7);
+      }
+
+      button[type="submit"]:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 30px -12px rgba(79, 70, 229, 0.8);
+      }
+
+      button[type="submit"]:active {
+        transform: translateY(0);
+      }
+
+      .results-card {
+        padding: 28px 32px;
+      }
+
+      .results-header {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 20px;
+      }
+
+      .results-header span {
+        color: #6b7280;
+        font-size: 0.9rem;
+      }
+
+      .quote-tool__list {
+        display: grid;
+        gap: 14px;
+      }
+
+      .quote-tool__item {
+        background: #f9fafb;
+        border-radius: 14px;
+        padding: 18px 20px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .quote-tool__label {
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .quote-tool__cta {
+        background: #111827;
+        color: #ffffff;
+        padding: 10px 20px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.2s ease, transform 0.2s ease;
+      }
+
+      .quote-tool__cta:hover {
+        background: #000000;
+        transform: translateY(-1px);
+      }
+
+      .quote-tool__cta:focus {
+        outline: 3px solid rgba(17, 24, 39, 0.3);
+        outline-offset: 2px;
+      }
+
+      .error-message {
+        background: rgba(220, 38, 38, 0.1);
+        color: #b91c1c;
+        border-radius: 12px;
+        padding: 12px 16px;
+        display: none;
+      }
+
+      .error-message.is-visible {
+        display: block;
+      }
+
+      .status {
+        font-size: 0.95rem;
+        color: #6b7280;
+      }
+
+      .status strong {
+        color: #111827;
+      }
+
+      @media (max-width: 600px) {
+        .card {
+          padding: 28px 22px;
+        }
+
+        .inline-group {
+          flex-direction: column;
+        }
+
+        .quote-tool__item {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .quote-tool__cta {
+          align-self: stretch;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="card">
+        <h1>Life Insurance Quote Tool</h1>
+        <p class="lead">Single-screen. Minimal questions. Auto-uses whatever carriers/products are present in the embedded JSON.</p>
+        <form id="quote-form">
+          <div class="inline-group">
+            <div class="field">
+              <label for="state">State</label>
+              <select id="state" name="state" required></select>
+            </div>
+            <div class="field">
+              <label for="age">Age</label>
+              <input id="age" name="age" type="number" min="18" max="80" value="50" required />
+            </div>
+            <div class="field">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="coverage">Coverage Amount</label>
+            <input id="coverage" name="coverage" type="range" min="10000" max="1000000" step="5000" value="100000" />
+            <div class="slider-value" id="coverage-display">$100,000</div>
+            <p class="note">Final expense typical range shown. Tool enforces product min/max per carrier at calculation time.</p>
+          </div>
+
+          <div class="inline-group" id="product-row">
+            <div class="field">
+              <label for="product-type">Product</label>
+              <select id="product-type" name="product" required></select>
+            </div>
+            <div class="field" id="term-field" hidden>
+              <label for="term">Term Length (years)</label>
+              <select id="term" name="term"></select>
+            </div>
+            <div class="field">
+              <label for="modality">Payment Mode</label>
+              <select id="modality" name="modality">
+                <option value="monthly">Monthly</option>
+                <option value="quarterly">Quarterly</option>
+                <option value="semi_annual">Semi-Annual</option>
+                <option value="annual">Annual</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="inline-group">
+            <div class="field">
+              <label for="nicotine">Tobacco/Nicotine in last 12 months?</label>
+              <select id="nicotine" name="nicotine">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Calculated Health Class</label>
+              <div class="status">Current: <strong id="health-class">Preferred Plus</strong></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Health (check any that apply)</label>
+            <div class="health-options">
+              <label class="checkbox-pill">
+                <input type="checkbox" name="health" value="copd" />
+                <span>COPD/Emphysema</span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" name="health" value="oxygen" />
+                <span>On Oxygen</span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" name="health" value="diabetes" />
+                <span>Diabetes</span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" name="health" value="insulin" />
+                <span>On Insulin</span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" name="health" value="heart" />
+                <span>Heart Attack/Stroke</span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" name="health" value="dementia" />
+                <span>Dementia/Alzheimer's</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="inline-group">
+            <div class="field">
+              <label for="button-text">Button Text</label>
+              <input id="button-text" name="buttonText" type="text" value="Book now" required />
+            </div>
+            <div class="field">
+              <label for="link-url">Button Link URL</label>
+              <input id="link-url" name="linkUrl" type="url" value="https://example.com/book" required />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit">Get Quotes</button>
+            <div class="status" id="status-text">Rates are estimates based on uploaded carrier tables & factors.</div>
+          </div>
+          <div class="error-message" id="error-message"></div>
+        </form>
+      </div>
+
+      <div class="card results-card">
+        <div class="results-header">
+          <h2>Available quotes</h2>
+          <span id="quote-count">No quotes yet</span>
+        </div>
+        <div id="quotes"></div>
+      </div>
+    </div>
+
+    <script src="quote_tool.js"></script>
+    <script>
+      (function () {
+        const STATES = [
+          "AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"
+        ];
+
+        const HEALTH_SCORES = {
+          nicotine: 2,
+          copd: 4,
+          oxygen: 5,
+          diabetes: 2,
+          insulin: 3,
+          heart: 3,
+          dementia: 4
+        };
+
+        const stateSelect = document.getElementById("state");
+        const productSelect = document.getElementById("product-type");
+        const termField = document.getElementById("term-field");
+        const termSelect = document.getElementById("term");
+        const coverageSlider = document.getElementById("coverage");
+        const coverageDisplay = document.getElementById("coverage-display");
+        const nicotineSelect = document.getElementById("nicotine");
+        const healthClassText = document.getElementById("health-class");
+        const form = document.getElementById("quote-form");
+        const quotesContainer = document.getElementById("quotes");
+        const statusText = document.getElementById("status-text");
+        const errorMessage = document.getElementById("error-message");
+        const quoteCount = document.getElementById("quote-count");
+
+        let calculator = null;
+        let underwritingData = null;
+        let productsByType = new Map();
+
+        function formatCurrency(value) {
+          return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(value);
+        }
+
+        function updateCoverageDisplay() {
+          coverageDisplay.textContent = formatCurrency(Number(coverageSlider.value));
+        }
+
+        function determineHealthClass() {
+          const nicotineUse = nicotineSelect.value === "true";
+          const selected = Array.from(form.querySelectorAll('input[name="health"]:checked')).map((input) => input.value);
+          let score = nicotineUse ? HEALTH_SCORES.nicotine : 0;
+          for (const item of selected) {
+            score += HEALTH_SCORES[item] || 1;
+          }
+
+          let healthClass = "preferred_plus";
+          if (score <= 1) {
+            healthClass = "preferred_plus";
+          } else if (score <= 3) {
+            healthClass = "preferred";
+          } else if (score <= 5) {
+            healthClass = "standard_plus";
+          } else if (score <= 7) {
+            healthClass = "standard";
+          } else if (score <= 9) {
+            healthClass = "table_a";
+          } else {
+            healthClass = "table_b";
+          }
+
+          const friendly = healthClass
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, (c) => c.toUpperCase());
+          healthClassText.textContent = friendly;
+          return healthClass;
+        }
+
+        function populateStates() {
+          const fragment = document.createDocumentFragment();
+          STATES.forEach((abbr) => {
+            const option = document.createElement("option");
+            option.value = abbr;
+            option.textContent = abbr;
+            fragment.appendChild(option);
+          });
+          stateSelect.appendChild(fragment);
+          stateSelect.value = "TX";
+        }
+
+        function populateProducts() {
+          productsByType = new Map();
+          const optionFragment = document.createDocumentFragment();
+
+          underwritingData.carriers.forEach((carrier) => {
+            carrier.products.forEach((product) => {
+              const type = product.type || "other";
+              if (!productsByType.has(type)) {
+                productsByType.set(type, new Set());
+              }
+              if (product.term_years) {
+                productsByType.get(type).add(product.term_years);
+              }
+            });
+          });
+
+          const typeLabels = {
+            term: "Term Life",
+            whole: "Whole Life",
+            ul: "Universal Life"
+          };
+
+          for (const [type] of productsByType) {
+            const option = document.createElement("option");
+            option.value = type;
+            option.textContent = typeLabels[type] || type.replace(/_/g, " " ).replace(/\b\w/g, (c) => c.toUpperCase());
+            optionFragment.appendChild(option);
+          }
+
+          productSelect.appendChild(optionFragment);
+          if (productSelect.options.length > 0) {
+            productSelect.value = productSelect.options[0].value;
+          }
+          refreshTermOptions();
+        }
+
+        function refreshTermOptions() {
+          const type = productSelect.value;
+          const terms = Array.from(productsByType.get(type) || []);
+          termSelect.innerHTML = "";
+          if (terms.length === 0) {
+            termField.hidden = true;
+            return;
+          }
+
+          termField.hidden = false;
+          const fragment = document.createDocumentFragment();
+          terms.sort((a, b) => a - b);
+          terms.forEach((term) => {
+            const option = document.createElement("option");
+            option.value = term;
+            option.textContent = `${term} years`;
+            fragment.appendChild(option);
+          });
+          termSelect.appendChild(fragment);
+        }
+
+        function showError(message) {
+          errorMessage.textContent = message;
+          errorMessage.classList.add("is-visible");
+        }
+
+        function clearError() {
+          errorMessage.textContent = "";
+          errorMessage.classList.remove("is-visible");
+        }
+
+        async function initialise() {
+          if (!window.QuoteTool) {
+            showError("QuoteTool is not available. Ensure quote_tool.js is loaded.");
+            return;
+          }
+
+          statusText.textContent = "Loading underwriting data...";
+
+          try {
+            underwritingData = await window.QuoteTool.loadUnderwritingData("carriers_template_new.json");
+            calculator = new window.QuoteTool.QuoteCalculator(underwritingData);
+            statusText.textContent = "Ready. Adjust the inputs and click Get Quotes.";
+            populateProducts();
+          } catch (error) {
+            console.error(error);
+            showError("Unable to load underwriting data. Serve the folder via a local web server (see README).");
+            statusText.textContent = "";
+          }
+        }
+
+        function renderQuotes(quotes) {
+          quotesContainer.innerHTML = "";
+          if (!quotes || quotes.length === 0) {
+            quoteCount.textContent = "No quotes available for the selected profile.";
+            return;
+          }
+
+          quoteCount.textContent = `${quotes.length} quote${quotes.length === 1 ? "" : "s"} found`;
+          window.QuoteTool.renderQuoteList(quotes, { container: quotesContainer });
+        }
+
+        populateStates();
+        updateCoverageDisplay();
+        determineHealthClass();
+        initialise();
+
+        coverageSlider.addEventListener("input", updateCoverageDisplay);
+        nicotineSelect.addEventListener("change", determineHealthClass);
+        form.querySelectorAll('input[name="health"]').forEach((input) => {
+          input.addEventListener("change", determineHealthClass);
+        });
+        productSelect.addEventListener("change", () => {
+          refreshTermOptions();
+        });
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          clearError();
+
+          if (!calculator) {
+            showError("Calculator is not ready yet. Please wait for underwriting data to load.");
+            return;
+          }
+
+          const healthClass = determineHealthClass();
+
+          const request = {
+            age: Number(document.getElementById("age").value),
+            gender: document.getElementById("gender").value,
+            state: stateSelect.value,
+            coverageAmount: Number(coverageSlider.value),
+            productType: productSelect.value,
+            healthClass,
+            nicotineUse: nicotineSelect.value === "true",
+            modality: document.getElementById("modality").value,
+            buttonText: document.getElementById("button-text").value.trim(),
+            linkUrl: document.getElementById("link-url").value.trim()
+          };
+
+          if (request.productType === "term" && !termField.hidden) {
+            request.termYears = Number(termSelect.value);
+          }
+
+          try {
+            const quotes = calculator.calculateQuotes(request);
+            renderQuotes(quotes);
+          } catch (error) {
+            console.error(error);
+            showError(error.message);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
