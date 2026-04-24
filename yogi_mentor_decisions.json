@@ -1,0 +1,10 @@
+{
+  "active_model": {
+    "primary": "openai:gpt-4.1",
+    "fallback": "openai:gpt-4o-mini"
+  },
+  "vector_database": "qdrant",
+  "hosting_provider": "render",
+  "admin_app_framework": "nextjs",
+  "bot_framework": "telegraf"
+}
